@@ -12,20 +12,20 @@ DEPSDIR = deps
 SRCS = $(wildcard $(SRCDIR)/*.c)
 
 
-all: $(BINDIR)/tp3
+all: $(BINDIR)/tp4
 .PHONY: all
 
 
-dist: tp3.zip
+dist: tp4.zip
 .PHONY: dist
 
 
-tp3.zip: Makefile README.md rapport.pdf $(wildcard $(SRCDIR)/*.c) $(wildcard $(SRCDIR)/*.h)
+tp4.zip: Makefile README.md rapport.pdf $(wildcard $(SRCDIR)/*.c) $(wildcard $(SRCDIR)/*.h)
 	-rm -f $@
 	zip $@ $^
 
 
-$(BINDIR)/tp3: $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
+$(BINDIR)/tp4: $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 	$(CC) $(LDFLAGS) -o $@ $^
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c

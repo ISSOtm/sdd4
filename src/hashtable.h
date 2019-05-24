@@ -21,5 +21,7 @@ HashSubTable_t * create_hashtable();
 
 void destroy_hashtable(HashTable_t table);
 
+HashSubTableCell_t * insert_hashtable_entry(HashTable_t table, char const * word, char const * translation);
+
 
 #endif

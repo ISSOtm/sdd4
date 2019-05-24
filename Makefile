@@ -5,7 +5,7 @@ SRCDIR  = src
 
 CFLAGS   = -Wall -Wextra -ansi -g -pedantic
 LDFLAGS  =
-DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPSDIR)/$*.d.tmp
+DEPFLAGS = -MT $@ -MMD -MP -MF $$TMPFILE
 DEPSDIR = deps
 
 
@@ -31,9 +31,10 @@ $(BINDIR)/tp4: $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	set -e; \
+	TMPFILE=`mktemp`;\
 	$(CC) -c $(DEPFLAGS) $(CFLAGS) -o $@ $<; \
-	sed 's,\($*\)\.o[ :]*,\1.o $(DEPSDIR)/\1.d: ,g' < $(DEPSDIR)/$*.d.tmp > $(DEPSDIR)/$*.d; \
-	rm $(DEPSDIR)/$*.d.tmp
+	sed 's,\($*\)\.o[ :]*,\1.o $(DEPSDIR)/\1.d: ,g' < $$TMPFILE > $(DEPSDIR)/$*.d; \
+	rm $$TMPFILE
 
 
 $(shell mkdir -p $(BINDIR) > /dev/null)

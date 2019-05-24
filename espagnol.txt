@@ -1,0 +1,3 @@
+hello;ola
+bye;adios
+sorry;disculpe

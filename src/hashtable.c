@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdio.h>
 #include "hashtable.h"
 
 
@@ -70,9 +71,25 @@ HashSubTableCell_t * insert_hashtable_entry(HashTable_t table, char const * word
 HashSubTableCell_t ** search_entry(const HashTable_t table, char const * word) {
 	HashSubTableCell_t ** search_ptr = &table[hash_string(word)];
 	
-	while (*search_ptr != NULL && (*search_ptr)->word != word) {
+	while (*search_ptr != NULL && strcmp((*search_ptr)->word, word) != 0) {
 		search_ptr = &(*search_ptr)->next;
 	}
 	
 	return search_ptr;
 }
+
+
+void print_hashtable(const HashTable_t table) {
+    unsigned i = 0;
+    
+    for(; i < HASH_MAX; i++) {
+        HashSubTableCell_t * read_ptr = table[i];
+        printf("[%02u]->", i);
+        while(read_ptr != NULL) {
+            printf("{\"%s\">\"%s\"}->", read_ptr->word, read_ptr->translation);
+            read_ptr = read_ptr->next;
+        }
+        puts("NULL");
+    }
+}
+

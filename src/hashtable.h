@@ -27,4 +27,7 @@ HashSubTableCell_t * insert_hashtable_entry(HashTable_t table, char const * word
 HashSubTableCell_t ** search_entry(const HashTable_t table, char const * word);
 
 
+void print_hashtable(const HashTable_t table);
+
+
 #endif

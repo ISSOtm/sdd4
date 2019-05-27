@@ -1,5 +1,6 @@
 
 #define _GNU_SOURCE /* For `getline` */
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "hashtable.h"
@@ -14,16 +15,16 @@ char * translate(const HashTable_t dictionary, char const * original) {
 
 
 HashTable_t dict_from_file(char const * path) {
-    static char * delimiters = ";\t \r\n";
+    static char * delimiters = ";\r\n";
 
     HashTable_t dictionary = create_hashtable();
     FILE * dict_file;
     char * line_buf = NULL;
     size_t line_buf_size = 0;
 
-    if(dictionary == NULL) {
+    if(dictionary != NULL) {
         dict_file = fopen(path, "rt");
-        if(dict_file) {
+        if(dict_file != NULL) {
             unsigned line_num = 1;
 
             while(getline(&line_buf, &line_buf_size, dict_file) != -1) {
@@ -36,6 +37,7 @@ HashTable_t dict_from_file(char const * path) {
                     strtok_arg = NULL; /* Only the first call to strtok must pass a non-null pointer */
                     first_token = second_token;
                     second_token = token;
+                    nb_tokens++;
                 }
                 
                 if(nb_tokens == 2) {

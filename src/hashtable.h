@@ -17,11 +17,14 @@ typedef HashSubTableCell_t* HashSubTable_t;
 typedef HashSubTable_t* HashTable_t;
 
 
-HashSubTable_t * create_hashtable();
+HashTable_t create_hashtable();
 
 void destroy_hashtable(HashTable_t table);
 
+
 HashSubTableCell_t * insert_hashtable_entry(HashTable_t table, char const * word, char const * translation);
+
+HashSubTableCell_t ** search_entry(const HashTable_t table, char const * word);
 
 
 #endif

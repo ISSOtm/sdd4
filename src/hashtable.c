@@ -67,7 +67,7 @@ HashSubTableCell_t * insert_hashtable_entry(HashTable_t table, char const * word
     return new_cell;
 }
 
-HashSubTableCell_t ** search_entry(HashTable_t table, char const * word) {
+HashSubTableCell_t ** search_entry(const HashTable_t table, char const * word) {
 	HashSubTableCell_t ** search_ptr = &table[hash_string(word)];
 	
 	while (*search_ptr != NULL && (*search_ptr)->word != word) {

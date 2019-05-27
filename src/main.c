@@ -1,14 +1,12 @@
 
 #include <stdio.h>
-#include "hashtable.h"
+#include "translation.h"
 
 
 int main() {
-    HashTable_t dictionary = create_hashtable();
-    char const string[] = "bonjour";
-    char const str2[] = "ola";
-
-    insert_hashtable_entry(dictionary, string, str2);
+    HashTable_t dictionary = dict_from_file("anglais.txt");
+    
+    printf("hello -> %s\n", translate(dictionary, "hello"));
 
     destroy_hashtable(dictionary);
 

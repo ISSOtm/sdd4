@@ -19,7 +19,7 @@ void destroy_hashtable(HashTable_t table) {
     HashSubTableCell_t * free_ptr, * next;
 
     for(i = 0; i < HASH_MAX; i++) {
-        free_ptr = table[i];
+        free_ptr = table[i].table;
         while(free_ptr != NULL) {
             next = free_ptr->next;
             free(free_ptr->word);
@@ -54,8 +54,9 @@ HashSubTableCell_t * insert_hashtable_entry(HashTable_t table, char const * word
         new_cell->word = word_copy;
         new_cell->translation = translation_copy;
         /* Insert new cell at the beginning of the list */
-        new_cell->next = table[hash];
-        table[hash] = new_cell;
+        new_cell->next = table[hash].table;
+        table[hash].table = new_cell;
+        table[hash].nb_entries++;
     } else {
         /* Any allocation failure is fine because `free(NULL)` does nothing */
         free(new_cell);
@@ -69,7 +70,7 @@ HashSubTableCell_t * insert_hashtable_entry(HashTable_t table, char const * word
 }
 
 HashSubTableCell_t ** search_entry(const HashTable_t table, char const * word) {
-	HashSubTableCell_t ** search_ptr = &table[hash_string(word)];
+	HashSubTableCell_t ** search_ptr = &table[hash_string(word)].table;
 	
 	while (*search_ptr != NULL && strcmp((*search_ptr)->word, word) != 0) {
 		search_ptr = &(*search_ptr)->next;
@@ -83,7 +84,7 @@ void print_hashtable(const HashTable_t table) {
     unsigned i = 0;
     
     for(; i < HASH_MAX; i++) {
-        HashSubTableCell_t * read_ptr = table[i];
+        HashSubTableCell_t * read_ptr = table[i].table;
         printf("[%02u]->", i);
         while(read_ptr != NULL) {
             printf("{\"%s\">\"%s\"}->", read_ptr->word, read_ptr->translation);
@@ -91,5 +92,16 @@ void print_hashtable(const HashTable_t table) {
         }
         puts("NULL");
     }
+}
+
+float average_entry_count(const HashTable_t table) {
+    float sum = 0.0f;
+    unsigned i = 0;
+    
+    for(; i < HASH_MAX; i++) {
+        sum += table[i].nb_entries;
+    }
+    
+    return sum / HASH_MAX;
 }
 

@@ -10,7 +10,10 @@ typedef struct HashSubTableCell {
     struct HashSubTableCell * next;
 } HashSubTableCell_t;
 
-typedef HashSubTableCell_t* HashSubTable_t;
+typedef struct {
+    HashSubTableCell_t * table;
+    unsigned nb_entries;
+} HashSubTable_t;
 
 /* The size of a has table is known, but declaring it as an array
  * creates a whole slew of problems when trying to allocate dynamically */
@@ -29,5 +32,6 @@ HashSubTableCell_t ** search_entry(const HashTable_t table, char const * word);
 
 void print_hashtable(const HashTable_t table);
 
+float average_entry_count(const HashTable_t table);
 
 #endif

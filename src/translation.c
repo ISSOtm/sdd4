@@ -9,29 +9,30 @@
 
 char * translate(const HashTable_t dictionary, char const * original) {
     HashSubTableCell_t * cell = *search_entry(dictionary, original);
-    
+
     return cell != NULL ? cell->translation : NULL;
 }
 
 
 HashTable_t dict_from_file(char const * path) {
-    static char * delimiters = ";\r\n";
+    static char const * delimiters = ";\r\n";
 
     HashTable_t dictionary = create_hashtable();
     FILE * dict_file;
-    char * line_buf = NULL;
-    size_t line_buf_size = 0;
 
     if(dictionary != NULL) {
         dict_file = fopen(path, "rt");
         if(dict_file != NULL) {
+            char * line_buf = NULL; /* Buffer for `getline` */
+            size_t line_buf_size = 0; /* Also for `getline` */
             unsigned line_num = 1;
 
             while(getline(&line_buf, &line_buf_size, dict_file) != -1) {
-                /* Process the line being read: delimit two tokens */
-                char * strtok_arg = line_buf;
-                char * token;
-                char * first_token, * second_token; /* Only if there were two tokens, will their names will be right */
+                /* Process the line being read: attempt to delimit two tokens */
+                char * strtok_arg = line_buf; /* Pointer passed to `strtok`, which must be non-NULL on first call only */
+                char * token; /* Pointer to the token being returned by `strtok` */
+                /* These two hold the last two tokens scanned */
+                char * first_token, * second_token; /* Only if there were two tokens, will their names make sense */
                 unsigned nb_tokens = 0;
                 while((token = strtok(strtok_arg, delimiters)) != NULL) {
                     strtok_arg = NULL; /* Only the first call to strtok must pass a non-null pointer */
@@ -39,7 +40,7 @@ HashTable_t dict_from_file(char const * path) {
                     second_token = token;
                     nb_tokens++;
                 }
-                
+
                 if(nb_tokens == 2) {
                     insert_hashtable_entry(dictionary, first_token, second_token);
                 } else if(nb_tokens != 0) {
@@ -56,7 +57,7 @@ HashTable_t dict_from_file(char const * path) {
             dictionary = NULL;
         }
     }
-    
+
     return dictionary;
 }
 

@@ -1,3 +1,12 @@
 hello;bonjour
 bye;au revoir
 sorry;pardon
+please wait;veuillez patienter
+confirm;confirmer
+error;erreur
+cancel;annuler
+
+status;statut
+OK;OK
+
+close;fermer

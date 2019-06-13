@@ -13,6 +13,15 @@ char * translate(const HashTable_t dictionary, char const * original) {
     return cell != NULL ? cell->value : NULL;
 }
 
+char ** translate_multiple(const HashTable_t dictionary, char const * const * original, size_t nb_strings) {
+    char ** translations = calloc(nb_strings, sizeof(char*));
+    size_t i;
+    for(i = 0; i < nb_translations; i++) {
+        translations[i] = translate(dictionary, original[i]);
+    }
+    return translations;
+}
+
 
 HashTable_t dict_from_file(char const * path) {
     static char const * delimiters = ";\r\n";

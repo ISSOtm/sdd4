@@ -7,12 +7,21 @@
 
 /**
  * Translates a string from a given language into another
- * @param dictionary The dictionary corressponding to the target language translation
+ * @param dictionary The dictionary corressponding to the desired language translation
  * @param original The string to be translated (in the source language)
  * @return A pointer to the translated string, or NULL if the source string isn't in the dictionary
  * @warning THE RETURN POINTER MUST NOT BE MODIFIED! Use `strdup`, `strcpy` or `sprintf` if you need a writable copy. Modifying this could corrupt further searches, amongst other problems.
  */
 char * translate(HashTable_t dictionary, char const * original);
+
+/**
+ * Translates multiple strings from a given language into another
+ * @param dictionary The dictionary corresponding to the desired language translation
+ * @param original The array of strings to be translated (in the source language)
+ * @param nb_strings The number of strings to translate
+ * @return An array of pointers to translated strings (in the destination language). Some pointers may be NULL, which would correspond to strings that couldn't be translated
+ */
+char ** translate_multiple(const HashTable_t dictionary, char const * const * original, size_t nb_strings);
 
 /**
  * Reads a file and builds a dictionary from it

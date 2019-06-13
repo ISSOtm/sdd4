@@ -59,6 +59,7 @@ HashTable_t dict_from_file(char const * path) {
                 line_num++;
             }
 
+            free(line_buf);
             fclose(dict_file);
 
         } else {

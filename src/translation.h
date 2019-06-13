@@ -19,7 +19,7 @@ char * translate(HashTable_t dictionary, char const * original);
  * @param dictionary The dictionary corresponding to the desired language translation
  * @param original The array of strings to be translated (in the source language)
  * @param nb_strings The number of strings to translate
- * @return An array of pointers to translated strings (in the destination language). Some pointers may be NULL, which would correspond to strings that couldn't be translated
+ * @return An array of pointers to translated strings (in the destination language). Some pointers may be NULL, which would correspond to strings that couldn't be translated. Note that this array must be freed afterwards!
  */
 char ** translate_multiple(const HashTable_t dictionary, char const * const * original, size_t nb_strings);
 

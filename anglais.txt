@@ -9,4 +9,15 @@ cancel;annuler
 status;statut
 OK;OK
 
+my;mon
+I;je
+am;suis
+a;un
+student;étudiant
+read;lis
+book;livre
+Peter;Pierre
+name;nom
+is;est
+
 close;fermer

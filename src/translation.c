@@ -16,7 +16,7 @@ char * translate(const HashTable_t dictionary, char const * original) {
 char ** translate_multiple(const HashTable_t dictionary, char const * const * original, size_t nb_strings) {
     char ** translations = calloc(nb_strings, sizeof(char*));
     size_t i;
-    for(i = 0; i < nb_translations; i++) {
+    for(i = 0; i < nb_strings; i++) {
         translations[i] = translate(dictionary, original[i]);
     }
     return translations;

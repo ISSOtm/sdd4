@@ -10,7 +10,7 @@
 char * translate(const HashTable_t dictionary, char const * original) {
     HashSubTableCell_t * cell = *search_entry(dictionary, original);
 
-    return cell != NULL ? cell->translation : NULL;
+    return cell != NULL ? cell->value : NULL;
 }
 
 
@@ -44,7 +44,7 @@ HashTable_t dict_from_file(char const * path) {
                 if(nb_tokens == 2) {
                     insert_hashtable_entry(dictionary, first_token, second_token);
                 } else if(nb_tokens != 0) {
-                    fprintf(stderr, "Malformed line %u: expected 2 words, got %u. Ignoring.\n", line_num, nb_tokens);
+                    fprintf(stderr, "Malformed line %u: expected 2 expressions, got %u. Ignoring.\n", line_num, nb_tokens);
                 }
 
                 line_num++;

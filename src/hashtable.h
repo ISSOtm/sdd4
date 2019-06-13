@@ -5,8 +5,8 @@
 #define HASH_MAX 29
 
 typedef struct HashSubTableCell {
-    char * word;
-    char * translation;
+    char * key;
+    char * value;
     struct HashSubTableCell * next;
 } HashSubTableCell_t;
 
